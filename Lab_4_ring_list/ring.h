@@ -27,5 +27,6 @@ class ring
 		void GoPrev();
 		void PushNext(double);
 		void PushPrev(double);
+		void SearchElement(double) const;
 		void Print();
 };

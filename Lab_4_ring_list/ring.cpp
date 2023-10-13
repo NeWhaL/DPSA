@@ -62,6 +62,46 @@ void ring::GoPrev()
 	head = head->prev;
 }
 
+void ring::SearchElement(double data) const
+{
+	bool element_exists;
+	element* elem = nullptr;
+	
+	if (head != nullptr)
+	{
+		for (elem = head; elem != head->prev; elem = elem->next)
+		{
+			if (data == elem->data)
+			{
+				element_exists = true;
+				cout << "Элемент с значением " << data << " существует" << endl;
+				break;
+			}
+			else element_exists = false;
+		}
+
+		if (!element_exists)
+		{
+			if (data == elem->data)
+			{
+				element_exists = true;
+				cout << "Элемент с значением " << data << " существует" << endl;
+			}
+			else element_exists = false;
+
+		}
+
+		if (!element_exists)
+		{
+			cout << "Элемента с значением " << data << " не присутвтвует в кольцевом списке" << endl;
+		}
+	}
+	else
+	{
+		cout << "Список пуст..." << endl;
+	}
+}
+
 void ring::DeleteElement()
 {
 	if (head == nullptr)
