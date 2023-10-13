@@ -1,5 +1,97 @@
 #include "menu.h"
-#include "list.h"
+
+int Menu::ChoiceQueue()
+{
+	int choice;
+
+	cout << "С какой очередью начать работать? (1/2): ";
+	cin >> choice;
+	while (choice < 1 || choice > 2)
+	{
+		cout << endl << "Принимается только 1 и 2. попробуйте снова: ";
+		cin >> choice;
+	}
+	return choice;
+}
+
+bool Menu::SwitchAction(Queue& Que_base, Queue& Que_additionally, int& choice_queue)
+{
+	bool isRunning = true;
+	int choice = ChoiceAction();
+	Element e;
+	system("clear");
+
+	switch(choice)
+	{
+		case 1:
+			Que_base.Print();
+			break;
+		case 2:
+			if (Que_base.IsEmpty())		cout << "Очередь пустая." << endl;
+			else						cout << "Очередь не пустая." << endl;	
+			break;
+		case 3:
+			cout << "Размер очереди в элементах: " << Que_base.Size() << endl;
+			break;
+		case 4:
+			{
+				int data_i;
+				double data_d;
+				cout << endl << "Введите значение поля data_int: ";		cin >> data_i;
+				cout << endl << "Введите значение поля data_double: ";	cin >> data_d;
+				e.setData_int(data_i);
+				e.setData_double(data_d);
+				Que_base.Push(e);
+				break;
+			}
+		case 5:
+			e = Que_base.Pull();
+			cout << "Извлечен элемент с значениями:" << endl << "data_int == " << e.getData_int() << endl << "data_double == " << e.getData_double() << endl;
+			break;
+		case 6:
+			Que_base.LookLastElement();
+			break;
+		case 7:
+			Que_base.DeleteQueue();
+			break;
+		case 8:
+			{
+				int amount_element;	
+				cout << "Сколько нужно извлечь элементов из очереди и передать в другую: ";
+				cin >> amount_element;
+				while (amount_element <= 0)
+				{
+					cout << endl << "Введено неверное количество элементов. Попробуйте снова: ";
+					cin >> amount_element;
+				}
+				Element* arr_e = Que_base.PullAmountElement(amount_element);
+				Que_additionally.AddElements(arr_e, amount_element);
+				break;
+			}
+		case 9:
+			choice_queue = ChoiceQueue();
+			break;
+		case 10:
+			{
+				int amount_element;	
+				cout << "Сколько нужно извлечь элементов из очереди и передать в другую: ";
+				cin >> amount_element;
+				while (amount_element <= 0)
+				{
+					cout << endl << "Введено неверное количество элементов. Попробуйте снова: ";
+					cin >> amount_element;
+				}
+				Element* arr_e = Que_base.PullAmountElement(amount_element);
+				delete[] arr_e;
+			}	
+			break;
+		case 11:
+			isRunning = false;
+			Que_base.DeleteQueue();
+			break;				
+	}
+	return isRunning;
+}
 
 int Menu::ChoiceAction()
 {
@@ -7,9 +99,6 @@ int Menu::ChoiceAction()
 
 	do
 	{
-		if (choice < 1 || choice > 10)
-			system("clear");
-
 		cout << " 1) Вывести очередь;" << endl <<
 				" 2) Проверить на наличие элементов;" << endl << 
 				" 3) Вывести размер очереди в элементах;" << endl <<
@@ -19,10 +108,11 @@ int Menu::ChoiceAction()
 				" 7) Удалить очередь;" << endl <<
 				" 8) Переместить n элементов из одной очереди в другую;" << endl <<
 				" 9) Переместиться на другую очередь;" << endl << 
-				"10) Извлечь n элементов из очереди;" << endl;
+				"10) Извлечь n элементов из очереди;" << endl << 
+				"11) Выйти." << endl;
 		cout << "Выберите действие которое хотите произвести: ";
 		cin >> choice;
-	} while (choice < 1 || choice > 10);
+	} while (choice < 1 || choice > 11);
 
 	return choice;
 }
@@ -30,50 +120,19 @@ int Menu::ChoiceAction()
 void Menu::Main()
 {
 	Queue Que_1, Que_2;
+	int choice_queue = 1;
+	bool isRunning = true;
 
-	switch(ChoiceAction())
+	while (isRunning)
 	{
-		case 1:
-			cout << "Первая очередь: " << endl;
-			Que_1.Print();
-			cout << endl << "Вторая очередь: " << endl;
-			Que_2.Print();
-			break;
-		case 2:
-			if (Que_1.IsEmpty())
-			{
-				cout << "Очередь Que_1 не пустая." << endl;
-			}
-			else
-			{
-				cout << "Очередь Que_1 пустая." << endl;
-			}
-			if (Que_2.IsEmpty())
-			{
-				cout << "Очередь Que_2 не пустая." << endl;
-			}
-			else
-			{
-				cout << "Очередь Que_2 пустая." << endl;
-			}
-			break;
-		case 3:
-			cout << "Размер очереди Que_1 в элементах: " << Que_1.Size() << endl;
-			cout << "Размер очереди Que_2 в элементах: " << Que_2.Size() << endl;
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			break;
-		case 8:
-			break;
-		case 9:
-			break;
-		case 10:
-			break;
+		if (choice_queue == 1)
+		{
+			isRunning = SwitchAction(Que_1, Que_2, choice_queue);
+		}
+		else
+		{
+			isRunning = SwitchAction(Que_2, Que_1, choice_queue);
+		}
 	}
 }
+

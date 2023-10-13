@@ -10,6 +10,7 @@ class Element
 		Element(int, double);
 		int getData_int() const;
 		double getData_double() const;
+		void setData_int(int);
+		void setData_double(double);
 		void Print() const;
-		Element operator = (Element);
 };

@@ -13,11 +13,11 @@ class Queue
 		~Queue();
 		int Size() const;
 		void Push(Element);
-		Element* PullAmountElement(int);
+		Element* PullAmountElement(int&);
 		Element Pull();
 		void AddElements(Element*&, int);
 		void LookLastElement() const;
 		void Print() const;
 		bool IsEmpty() const;
-		void DeleteQueue();
+		void DeleteQueue();	
 };

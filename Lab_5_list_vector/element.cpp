@@ -18,3 +18,14 @@ double Element::getData_double() const
 {
 	return data_double;
 }
+
+void Element::setData_int(int data_i)
+{
+	data_int = data_i;
+}
+
+void Element::setData_double(double data_d)
+{
+	data_double = data_d;
+}
+
