@@ -65,7 +65,7 @@ bool Menu::SwitchAction(Queue& Que_base, Queue& Que_additionally, int& choice_qu
 					cin >> amount_element;
 				}
 				Element* arr_e = Que_base.PullAmountElement(amount_element);
-				Que_additionally.AddElements(arr_e, amount_element);
+				Que_additionally.PushElements(arr_e, amount_element);
 				break;
 			}
 		case 9:
@@ -86,6 +86,10 @@ bool Menu::SwitchAction(Queue& Que_base, Queue& Que_additionally, int& choice_qu
 			}	
 			break;
 		case 11:
+			Que_base.DeleteQueue();
+			Que_base.PushRandElements();
+			break;
+		case 12:
 			isRunning = false;
 			Que_base.DeleteQueue();
 			break;				
@@ -109,10 +113,11 @@ int Menu::ChoiceAction()
 				" 8) Переместить n элементов из одной очереди в другую;" << endl <<
 				" 9) Переместиться на другую очередь;" << endl << 
 				"10) Извлечь n элементов из очереди;" << endl << 
-				"11) Выйти." << endl;
+				"11) Заподнить очередь случайными числами;" << endl <<
+				"12) Выйти." << endl << endl;
 		cout << "Выберите действие которое хотите произвести: ";
 		cin >> choice;
-	} while (choice < 1 || choice > 11);
+	} while (choice < 1 || choice > 12);
 
 	return choice;
 }

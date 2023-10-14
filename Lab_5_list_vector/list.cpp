@@ -68,6 +68,27 @@ Element Queue::Pull()
 	return Element (data_i, data_d);
 }
 
+void Queue::PushRandElements()
+{
+	int amount_element;
+	Element e;
+
+	cout << "Сколько элементов должно быть в очереди: ";
+	cin >> amount_element;
+	while (amount_element <= 0)
+	{
+		cout << "Количество элементов не может быть меньшь или равно 0. Попробуйте снова: ";
+		cin >> amount_element;
+	}
+	
+	for (int i = 0; i < amount_element; i++)
+	{
+		e.setData_int(rand() % 100 + 1);
+		e.setData_double(rand() % 100 + 1);
+		Push(e);
+	}
+}
+
 Element* Queue::PullAmountElement(int& amount_element)
 {
 	Element* QueueElements = nullptr;
@@ -124,7 +145,7 @@ Element* Queue::PullAmountElement(int& amount_element)
 	return QueueElements;
 }
 
-void Queue::AddElements(Element*& Add_arr_element, int amount_element)
+void Queue::PushElements(Element*& Add_arr_element, int amount_element)
 {
 	if (Add_arr_element != nullptr)
 	{

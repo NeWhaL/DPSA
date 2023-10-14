@@ -13,9 +13,10 @@ class Queue
 		~Queue();
 		int Size() const;
 		void Push(Element);
+		void PushRandElements();
 		Element* PullAmountElement(int&);
 		Element Pull();
-		void AddElements(Element*&, int);
+		void PushElements(Element*&, int);
 		void LookLastElement() const;
 		void Print() const;
 		bool IsEmpty() const;
